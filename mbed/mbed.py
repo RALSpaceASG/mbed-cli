@@ -2731,6 +2731,9 @@ def config_(var=None, value=None, global_cfg=False, unset=False, list_config=Fal
         if global_cfg:
             # Global configuration
             g = Global()
+            if var == 'PROFILE':
+                action('profile is a local-only option')
+                return
             if unset:
                 g.set_cfg(var, None)
                 action('Unset global %s' % name)
