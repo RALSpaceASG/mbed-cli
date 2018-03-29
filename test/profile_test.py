@@ -24,10 +24,17 @@ def assertprofile(mbed, profile):
 
     assert output == expected
 
-# Tests `mbed config profile`
-def testprofile(mbed):
+def test_config_profile(mbed):
+    '''test `mbed config profile`'''
     # need to mark dir as an mbed program
     popen(['python', mbed, 'config', 'root', '.'])
 
     assertprofile(mbed, 'mbed-os/tools/profiles/develop.json')
     assertprofile(mbed, 'mbed-os/tools/profiles/develop.json cxx11_profile.json')
+
+def test_config_global_profile(mbed):
+    '''attempting to configure a global profile should result in an error message'''
+    profile = '~/.mbed_global_profile.json'
+    output = pquery(['python', mbed, 'config', '--global', 'profile', profile])
+
+    assert output == '[mbed] profile is a local-only option\n'
