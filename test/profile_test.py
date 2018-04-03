@@ -50,6 +50,11 @@ def test_profile(mbed, empty):
     assertprofile(mbed, 'mbed-os/tools/profiles/develop.json')
     assertprofile(mbed, 'mbed-os/tools/profiles/develop.json cxx11_profile.json')
 
+def test_global_profile(mbed, empty):
+    '''test `mbed profile --global`'''
+    assert config(mbed, 'profile', '--global', '~/.mbed_global_profile') \
+        == '[mbed] profile is a local-only option\n'
+
 def test_config_profile(mbed, empty):
     '''test `mbed config profile`'''
     assertconfig(mbed, 'profile', None)
@@ -59,7 +64,5 @@ def test_config_profile(mbed, empty):
 
 def test_config_global_profile(mbed):
     '''attempting to configure a global profile should result in an error message'''
-    profile = '~/.mbed_global_profile.json'
-    output = pquery(['python', mbed, 'config', '--global', 'profile', profile])
-
-    assert output == '[mbed] profile is a local-only option\n'
+    assert config(mbed, 'config', '--global', 'profile', '~/.mbed_global_profile') \
+        == '[mbed] profile is a local-only option\n'
