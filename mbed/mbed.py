@@ -2793,7 +2793,7 @@ def toolchain_(name=None, global_cfg=False, supported=False):
     return config_('toolchain', name, global_cfg=global_cfg)
 
 @subcommand('profile',
-    dict(name='path', nargs='+', help='Default profile path. Example: mbed-os/tools/profiles/develop.json, ./profile-cxx11.json'),
+    dict(name='path', nargs='*', help='Default profile path. Example: mbed-os/tools/profiles/develop.json, ./profile-cxx11.json'),
     dict(name=['-G', '--global'], dest='global_cfg', action='store_true', help='Use global settings, not local'),
     help='Set or get default profile(s)\n\n',
     description=(
